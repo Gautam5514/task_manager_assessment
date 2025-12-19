@@ -14,15 +14,16 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: CLIENT_ORIGIN,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
     },
 });
 
-app.use(cors());
+app.use(cors({ origin: CLIENT_ORIGIN }));
 app.use(express.json());
 
 // Set io to app to access in controllers
