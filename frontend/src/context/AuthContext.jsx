@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import socket from '../lib/socket.js';
+import { API_ENDPOINTS } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const { data } = await axios.post('http://localhost:4000/api/auth/login', {
+            const { data } = await axios.post(API_ENDPOINTS.AUTH.LOGIN, {
                 email,
                 password,
             });
@@ -37,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (name, email, password) => {
         try {
-            const { data } = await axios.post('http://localhost:4000/api/auth/register', {
+            const { data } = await axios.post(API_ENDPOINTS.AUTH.REGISTER, {
                 name,
                 email,
                 password,

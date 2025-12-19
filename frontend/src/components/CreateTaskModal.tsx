@@ -4,6 +4,7 @@ import { X, Calendar, Flag, User, AlertCircle, Loader2 } from 'lucide-react';
 import useAuth from '../hooks/useAuth';
 import { User as UserType, TaskPriority } from '../types';
 import { cn } from '../lib/utils';
+import { API_ENDPOINTS } from '../config/api';
 
 interface CreateTaskModalProps {
     isOpen: boolean;
@@ -46,7 +47,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             };
 
             const { data } = await axios.post(
-                'http://localhost:4000/api/tasks',
+                API_ENDPOINTS.TASKS,
                 {
                     title,
                     description,

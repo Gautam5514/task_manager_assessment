@@ -17,6 +17,7 @@ import CreateTaskModal from '../components/CreateTaskModal';
 import Toast from '../components/Toast';
 import { Task, User as UserType } from '../types';
 import { cn } from '../lib/utils';
+import { API_ENDPOINTS } from '../config/api';
 
 const Dashboard: React.FC = () => {
     const { user } = useAuth();
@@ -34,7 +35,7 @@ const Dashboard: React.FC = () => {
     const fetchTasks = async () => {
         setLoading(true);
         try {
-            const { data } = await axios.get('http://localhost:4000/api/tasks', {
+            const { data } = await axios.get(API_ENDPOINTS.TASKS, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setTasks(data);
@@ -47,7 +48,7 @@ const Dashboard: React.FC = () => {
 
     const fetchUsers = async () => {
         try {
-            const { data } = await axios.get('http://localhost:4000/api/auth/users', {
+            const { data } = await axios.get(API_ENDPOINTS.AUTH.USERS, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setUsers(data);

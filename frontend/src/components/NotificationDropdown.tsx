@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useAuth from '../hooks/useAuth';
 import socket from '../lib/socket';
 import { cn } from '../lib/utils';
+import { API_ENDPOINTS } from '../config/api';
 
 const NotificationDropdown = () => {
     const { user } = useAuth();
@@ -14,7 +15,7 @@ const NotificationDropdown = () => {
 
     const fetchNotifications = async () => {
         try {
-            const { data } = await axios.get('http://localhost:4000/api/notifications', {
+            const { data } = await axios.get(API_ENDPOINTS.NOTIFICATIONS.BASE, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setNotifications(data);
@@ -50,7 +51,7 @@ const NotificationDropdown = () => {
 
     const markAsRead = async (id) => {
         try {
-            await axios.put(`http://localhost:4000/api/notifications/${id}/read`, {}, {
+            await axios.put(API_ENDPOINTS.NOTIFICATIONS.READ(id), {}, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setNotifications(notifications.map(n => n._id === id ? { ...n, read: true } : n));
